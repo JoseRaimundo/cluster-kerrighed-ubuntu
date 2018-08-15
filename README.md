@@ -171,11 +171,12 @@ Salve e feche o arquivo, e continue a compilação e finalmente instale o gcc.
 
 
 
-
-Volte para a pasta do Kerrighed e execute o comando de configuração duas vezes.
+Volte para a pasta do Kerrighed e execute os seguintes comandos (o comando de configuração duas vezes).
 
 
 	cd /usr/src/kerrighed-src/
+	
+	sudo ./autogen.sh
 
 	sudo ./configure --sysconfdir=/etc CC=gcc-4.1
 	
@@ -186,6 +187,19 @@ Informe para o Kerrighed quanto núcleos disponíveis sua máquina possuí:
 
 	export CONCURRENCY_LEVEL=<número de núcleos>
 
+Configure os drives e demais characteristics que requem suporte, para isso basta acessar a pasta do kernel e compilar o menu, irá aparecer uma janela para selecionar as opções desejadas :
+
+	cd kernel
+	
+	make menuconfig
+
+> IMPORTANTE: A configuração default é suficiente para o kernel utilizado, porém é necessário desmarcar as seguintes opções: 
+>> Device drivers -> Macintosh device drivers
+>> Device drivers -> Network device support -> Ethernet (10 or 100 MBits)
+ >> Device drivers -> Network device support -> Ethernet (10 00 MBits)
+ > 
+>Volte para o menu principal, salve as configurações e saia do menu.
+
 Execute o comando de compilação do código do Kerrighed setando a versão do GCC que instalamos.
 
 	sudo make kernel CC=gcc-4.1
@@ -193,11 +207,11 @@ Execute o comando de compilação do código do Kerrighed setando a versão do G
 
 Irá aparecer o erro:
 
+ ![imagem erro 4](https://github.com/JoseRaimundo/cluster-kerrighed-ubuntu/blob/master/img/erro4.png?raw=true)
 
- imagem erro 4
+Para solucionar, basta abrir o arquivo timeconst:
 
-Para solucionar, basta abrir o arquivo 
-
+	sudo gedit _kernel/kernel/timeconst.pl 
 
 Na linha 374, substitua:
 
@@ -207,17 +221,33 @@ Por:
 
 	if (!(@val)) {
 
+Salve e feche o arquivo, agora abra o arquivo sumversion.c:
+
+	gedit _kernel/scripts/mod/sumversion.c
+
+E na primeira linha adicione a linha:
+
+	#include <limits.h> 
+
+Salve e feche o arquivo e continue com a compilação.
+ 
+	sudo make kernel CC=gcc-4.1
+
+Agora é só instalar e usar o Kerrighed:
+	
+	sudo make install CC=gcc-4.1
+
+Para usar, você pode consultar a documentação presente no site oficial do [Kerrighed](http://www.kerrighed.org/).
+
+
+
 ----
 
 
 ----
 
 
-Agora execute separadamente os seguintes comandos: 
-
-	cd kerrighed-src
-
-	sudo ./autogen.sh 
+		
 
 		
 
