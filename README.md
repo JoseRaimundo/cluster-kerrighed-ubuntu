@@ -198,7 +198,7 @@ Configure os drives e demais characteristics que requem suporte, para isso basta
 >>
 >> Device drivers -> Network device support -> Ethernet (10 or 100 MBits)
 >>
- >> Device drivers -> Network device support -> Ethernet (10 00 MBits)
+ >> Device drivers -> Network device support -> Ethernet (1000 MBits)
  > 
 >Volte para o menu principal, salve as configurações e saia do menu.
 
