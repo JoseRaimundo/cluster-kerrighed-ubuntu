@@ -150,7 +150,7 @@ Por:
 	
 Se você continuar, outro erro no mesmo arquivo irá acontecer.
 
-	imagem error3
+![imagem error3](https://github.com/JoseRaimundo/cluster-kerrighed-ubuntu/blob/master/img/erro3.png?raw=true)
 
 Substitundo na linha 58:
 
@@ -160,21 +160,52 @@ Por:
 
 	// sc = (struct sigcontext *) (void *) &uc_->uc_mcontext;
 
-Salve e feche o arquivo, volte para a pasta build e continue com a compilação.
-Logo o erro um outro erro acontecerá:
+Salve e feche o arquivo, e continue a compilação e finalmente instale o gcc.
 
-	imgaem erro3
-
-Solução: 
-
+	sudo make -j 2 bootstrap MAKEINFO=makeinfo
+	
+	sudo make install
 
 
-
+### Compilando o Kerrighed
 
 
 
 
+Volte para a pasta do Kerrighed e execute o comando de configuração duas vezes.
 
+
+	cd /usr/src/kerrighed-src/
+
+	sudo ./configure --sysconfdir=/etc CC=gcc-4.1
+	
+	sudo ./configure --sysconfdir=/etc CC=gcc-4.1
+
+
+Informe para o Kerrighed quanto núcleos disponíveis sua máquina possuí:
+
+	export CONCURRENCY_LEVEL=<número de núcleos>
+
+Execute o comando de compilação do código do Kerrighed setando a versão do GCC que instalamos.
+
+	sudo make kernel CC=gcc-4.1
+
+
+Irá aparecer o erro:
+
+
+ imagem erro 4
+
+Para solucionar, basta abrir o arquivo 
+
+
+Na linha 374, substitua:
+
+	if (!defined(@val)) {
+
+Por:
+
+	if (!(@val)) {
 
 ----
 
