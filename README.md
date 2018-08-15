@@ -195,7 +195,9 @@ Configure os drives e demais characteristics que requem suporte, para isso basta
 
 > IMPORTANTE: A configuração default é suficiente para o kernel utilizado, porém é necessário desmarcar as seguintes opções: 
 >> Device drivers -> Macintosh device drivers
+>>
 >> Device drivers -> Network device support -> Ethernet (10 or 100 MBits)
+>>
  >> Device drivers -> Network device support -> Ethernet (10 00 MBits)
  > 
 >Volte para o menu principal, salve as configurações e saia do menu.
